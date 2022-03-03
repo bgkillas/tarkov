@@ -39,7 +39,7 @@ if [ ! -d "$CFG/pfx" ]; then
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
 	echo -e "Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\EscapeFromTarkov]
+[HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\EscapeFromTarkov]
 \"DisplayIcon\"=\"Z:$(echo "$HOME"|sed 's@/@\\\\\\@g')\\\\\.config\\\\\\\tarkov\\\\\\\eft\\\\\\\EscapeFromTarkov.exe\"
 \"DisplayName\"=\"Escape from Tarkov\"
 \"HelpLink\"=\"https://www.escapefromtarkov.com/\"
