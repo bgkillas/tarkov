@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir -p "$HOME/.config/tarkov/cfg" &>/dev/null
+mkdir -p "$HOME/.config/tarkov/{eft,cfg}" &>/dev/null
 set -e
 cd "$HOME"
 CFG="$HOME/.config/tarkov"
