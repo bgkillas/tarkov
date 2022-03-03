@@ -30,8 +30,8 @@ if [ ! -d "$CFG/pfx" ]; then
 	cd ..
 	rm -rf tmp bsglauncher.exe inno.tar.xz innoextract-1.9-linux
 	WINEDEBUG=-all \
-		PATH="$PROTON"/*/bin:$PATH \
-		WINE="$PROTON"/*/bin/wine64 \
+		PATH="$(eval echo "$PROTON"/*/bin)":$PATH \
+		WINE="(eval echo "$PROTON"/*/bin/wine64) \
 		WINEPREFIX="$CFG/pfx" \
 		sh winetricks -q -f dotnet48
 	rm -rf Temp winetricks
