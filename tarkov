@@ -37,16 +37,29 @@ if [ ! -d "$CFG/pfx" ]; then
 	rm -rf Temp winetricks
 	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
-	#	echo -e 'Windows Registry Editor Version 5.00\n\n[HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\EscapeFromTarkov]\n"DisplayIcon"="Z:\\\home\\\.config\\\tarkov\\\\eft\\\\EscapeFromTarkov.exe"\n"DisplayName"="Escape from Tarkov"\n"HelpLink"="https://www.escapefromtarkov.com/"\n"InstallLocation"="Z:\\\home\\\.config\\\tarkov\\\\eft"\n"NoModify"=dword:00000001\n"Publisher"="Battlestate Games"\n"UninstallString"="Z:\\\home\\\.config\\\tarkov\\\\eft\\\Uninstall.exe"\n"URLInfoAbout"="https://www.escapefromtarkov.com/"\n"URLUpdateInfo"="https://www.escapefromtarkov.com/"\n' >/tmp/eft
-	#	awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
-	#	WINEPREFIX="$CFG/pfx" \
-	#		$PROTON/files/bin/wine64 regedit /tmp/eft.reg
+	echo -e "
+	Windows Registry Editor Version 5.00
+	
+	[HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\EscapeFromTarkov]
+	\"DisplayIcon\"=\"Z:$(echo "$HOME"|sed 's@/@\\\\\\@g')\\\\\.config\\\\\\\tarkov\\\\\\\eft\\\\\\\EscapeFromTarkov.exe\"
+	\"DisplayName\"=\"Escape from Tarkov\"
+	\"HelpLink\"=\"https://www.escapefromtarkov.com/\"
+	\"InstallLocation\"=\"Z:$(echo "$HOME"|sed 's@/@\\\\\\@g')\\\\\.config\\\\\\\tarkov\\\\\\\eft\"
+	\"NoModify\"=dword:00000001
+	\"Publisher\"=\"Battlestate Games\"
+	\"UninstallString\"=\"Z:$(echo "$HOME"|sed 's@/@\\\\\\@g')\\\\\.config\\\\\\\tarkov\\\\\\\eft\\\\\Uninstall.exe\"
+	\"URLInfoAbout\"=\"https://www.escapefromtarkov.com/\"
+	\"URLUpdateInfo\"=\"https://www.escapefromtarkov.com/\"
+	" >/tmp/eft
+	awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
+	WINEPREFIX="$CFG/pfx" \
+		$PROTON/files/bin/wine64 regedit /tmp/eft.reg
 	WINEPREFIX="$CFG/pfx" \
 		"$PROTON"/files/bin/wine64 winecfg -v win10
 	cp -au "$PROTON"/files/share/fonts/* "$CFG/pfx/drive_c/windows/Fonts"
 fi
 sleep 3
-# cp -au "$PROTON/files/lib64/wine/dxvk/d3d11.dll" "$HOME/.config/tarkov/eft"
+cp -au "$PROTON/files/lib64/wine/dxvk/d3d11.dll" "$HOME/.config/tarkov/eft"
 PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
 	WINEDLLOVERRIDES='d3d11=n' \
 	WINEFSYNC='1' \
