@@ -1,0 +1,54 @@
+#!/bin/bash
+mkdir -p "$HOME/.config/tarkov/cfg" &>/dev/null
+set -e
+cd "$HOME"
+CFG="$HOME/.config/tarkov"
+if [ ! -d "$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" ]; then
+	echo "$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime does not exist make sure 'Proton Battleye Runtime' tool is installed"
+	exit
+fi
+if [ -d "$HOME/.steam/steam/Steam/steamapps/common/Proton" ]; then
+	PROTON="$HOME/.steam/steam/Steam/steamapps/common/Proton"
+else
+	echo "$HOME/.steam/steam/Steam/steamapps/common/Proton does not exist specify proton directory full path then hit enter"
+	read -r a
+	PROTON="$a"
+fi
+if [ ! -d "$CFG/pfx" ]; then
+	curl 'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks' -o winetricks
+	curl -L 'https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-linux.tar.xz' -o inno.tar.xz
+	curl -L 'https://prod.escapefromtarkov.com/launcher/download' -o bsglauncher.exe
+	rm -rf "$HOME"/.config/tarkov/bsg
+	tar -xf inno.tar.xz
+	cd innoextract-1.9-linux
+	./innoextract -s ../bsglauncher.exe
+	mv app "$HOME"/.config/tarkov/bsg
+	cd ..
+	rm -rf tmp bsglauncher.exe inno.tar.xz innoextract-1.9-linux
+	WINEDEBUG=-all \
+		PATH="$PROTON/files/bin:$PATH" \
+		WINE="$PROTON/files/bin/wine64" \
+		WINEPREFIX="$CFG/pfx" \
+		sh winetricks -q -f dotnet48
+	rm winetricks
+	set +e
+	mkdir "$HOME"/.config/tarkov/eft
+	set -e
+	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
+	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
+	#	echo -e 'Windows Registry Editor Version 5.00\n\n[HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\EscapeFromTarkov]\n"DisplayIcon"="Z:\\\home\\\.config\\\tarkov\\\\eft\\\\EscapeFromTarkov.exe"\n"DisplayName"="Escape from Tarkov"\n"HelpLink"="https://www.escapefromtarkov.com/"\n"InstallLocation"="Z:\\\home\\\.config\\\tarkov\\\\eft"\n"NoModify"=dword:00000001\n"Publisher"="Battlestate Games"\n"UninstallString"="Z:\\\home\\\.config\\\tarkov\\\\eft\\\Uninstall.exe"\n"URLInfoAbout"="https://www.escapefromtarkov.com/"\n"URLUpdateInfo"="https://www.escapefromtarkov.com/"\n' >/tmp/eft
+	#	awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
+	#	WINEPREFIX="$CFG/pfx" \
+	#		$PROTON/files/bin/wine64 regedit /tmp/eft.reg
+	WINEPREFIX="$CFG/pfx" \
+		"$PROTON"/files/bin/wine64 winecfg -v win10
+	cp -au "$PROTON"/files/share/fonts/* "$CFG/pfx/drive_c/windows/Fonts"
+fi
+cp -au "$PROTON/files/lib64/wine/dxvk/d3d11.dll" "$HOME/.config/tarkov/eft"
+PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
+	WINEDLLOVERRIDES='d3d11=n' \
+	WINEFSYNC='1' \
+	WINEDEBUG='-all' \
+	WINEPREFIX="$CFG/pfx" \
+	"$PROTON/files/bin/wine64" \
+	"$HOME/.config/tarkov/bsg/BsgLauncher.exe"
