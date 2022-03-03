@@ -35,9 +35,6 @@ if [ ! -d "$CFG/pfx" ]; then
 		WINEPREFIX="$CFG/pfx" \
 		sh winetricks -q -f dotnet48
 	rm -rf Temp winetricks
-	set +e
-	mkdir "$HOME"/.config/tarkov/eft
-	set -e
 	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
 	#	echo -e 'Windows Registry Editor Version 5.00\n\n[HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\EscapeFromTarkov]\n"DisplayIcon"="Z:\\\home\\\.config\\\tarkov\\\\eft\\\\EscapeFromTarkov.exe"\n"DisplayName"="Escape from Tarkov"\n"HelpLink"="https://www.escapefromtarkov.com/"\n"InstallLocation"="Z:\\\home\\\.config\\\tarkov\\\\eft"\n"NoModify"=dword:00000001\n"Publisher"="Battlestate Games"\n"UninstallString"="Z:\\\home\\\.config\\\tarkov\\\\eft\\\Uninstall.exe"\n"URLInfoAbout"="https://www.escapefromtarkov.com/"\n"URLUpdateInfo"="https://www.escapefromtarkov.com/"\n' >/tmp/eft
