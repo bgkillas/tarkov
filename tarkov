@@ -53,7 +53,7 @@ if [ ! -d "$CFG/pfx" ]; then
 	" >/tmp/eft
 	awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
 	WINEPREFIX="$CFG/pfx" \
-		$PROTON/*/bin/wine64 regedit /tmp/eft.reg
+		"$PROTON"/*/bin/wine64 regedit /tmp/eft.reg
 	WINEPREFIX="$CFG/pfx" \
 		"$PROTON"/*/bin/wine64 winecfg -v win10
 	cp -au "$PROTON"/*/share/fonts/* "$CFG/pfx/drive_c/windows/Fonts"
