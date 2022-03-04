@@ -63,6 +63,7 @@ if [ ! -d "$CFG/pfx" ]; then
 	rm -rf "$CFG/pfx/drive_c/windows/Fonts"  
 	ln -sf "$PROTON"/*/share/fonts "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$CFG/pfx/drive_c/windows/system32/d3d11.dll"
+	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/system32/dxgi.dll"
 fi
 sleep 3
 cd "$HOME/.config/tarkov/bsg"
