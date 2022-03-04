@@ -13,15 +13,13 @@ if [ ! -d "$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" ];
 	echo "$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime does not exist make sure 'Proton Battleye Runtime' tool is installed"
 	exit
 fi
-if [ -d "$HOME/.steam/steam/Steam/steamapps/common/Proton" ]; then
-	PROTON="$HOME/.steam/steam/Steam/steamapps/common/Proton"
+if [ -f "$HOME/.config/tarkov/proton" ] && [ "$(cat "$HOME"/.config/tarkov/proton | wc -l)" -eq 1 ]; then
+	PROTON="$(cat "$HOME"/.config/tarkov/proton)"
+elif [ -d "$HOME/.local/share/Steam/steamapps/common/Proton 7.0" ]; then
+	PROTON="$HOME/.local/share/Steam/steamapps/common/Proton 7.0"
 else
-	if [ "$(cat "$HOME"/.config/tarkov/proton | wc -l)" -eq 1 ]; then
-		PROTON="$(cat "$HOME"/.config/tarkov/proton)"
-	else
-		echo "$HOME/.steam/steam/Steam/steamapps/common/Proton does not exist specify proton directorys full path in the file $HOME/.config/tarkov/proton"
-		exit
-	fi
+	echo "$HOME/.local/share/Steam/steamapps/common/Proton 7.0 does not exist specify proton directorys full path in the file $HOME/.config/tarkov/proton"
+	exit
 fi
 if [ ! -d "$CFG/pfx" ]; then
 	curl 'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks' -o winetricks
