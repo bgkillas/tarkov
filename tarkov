@@ -60,6 +60,16 @@ fi
 sleep 3
 cd "$HOME/.config/tarkov/bsg"
 cp -au "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$HOME/.config/tarkov/eft"
+if [ -f /home/.config/tarkov/prerun ];then
+PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
+	WINEDLLOVERRIDES='d3d11=n' \
+	WINEFSYNC='1' \
+	WINEDEBUG='-all' \
+	WINEPREFIX="$CFG/pfx" \
+	"$(cat /home/.config/tarkov/prerun)" \
+	"$PROTON"/*/bin/wine64 \
+	"$HOME/.config/tarkov/bsg/BsgLauncher.exe"
+else
 PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
 	WINEDLLOVERRIDES='d3d11=n' \
 	WINEFSYNC='1' \
@@ -67,3 +77,4 @@ PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlE
 	WINEPREFIX="$CFG/pfx" \
 	"$PROTON"/*/bin/wine64 \
 	"$HOME/.config/tarkov/bsg/BsgLauncher.exe"
+fi
