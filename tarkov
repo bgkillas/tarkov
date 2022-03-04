@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
+curl -o tarkov 'https://raw.githubusercontent.com/bgkillas/tarkov/main/tarkov'
+sudo chmod +x tarkov
+sudo mv tarkov /usr/local/bin/tarkov
+fi
 mkdir -p "$HOME"/.config/tarkov/{eft,cfg} &>/dev/null
 set -e
 cd "$HOME"
@@ -33,7 +38,7 @@ if [ ! -d "$CFG/pfx" ]; then
 		WINE="$(eval echo "$PROTON"/*/bin/wine64)" \
 		WINEPREFIX="$CFG/pfx" \
 		sh winetricks -q -f dotnet48
-	rm -rf Temp winetricks
+	rm -rf winetricks
 	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
 	echo -e "Windows Registry Editor Version 5.00
@@ -54,11 +59,12 @@ if [ ! -d "$CFG/pfx" ]; then
 		"$PROTON"/*/bin/wine64 regedit /tmp/eft.reg
 	WINEPREFIX="$CFG/pfx" \
 		"$PROTON"/*/bin/wine64 winecfg -v win10
-	cp -au "$PROTON"/*/share/fonts/* "$CFG/pfx/drive_c/windows/Fonts"
+	rm -rf "$CFG/pfx/drive_c/windows/Fonts"  
+	ln -sf "$PROTON"/*/share/fonts "$CFG/pfx/drive_c/windows/Fonts"
+	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$CFG/pfx/drive_c/windows/system32/d3d11.dll"
 fi
 sleep 3
 cd "$HOME/.config/tarkov/bsg"
-cp -au "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$HOME/.config/tarkov/eft"
 if [ -f /home/.config/tarkov/prerun ]; then
 	PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
 		WINEDLLOVERRIDES='d3d11=n' \
