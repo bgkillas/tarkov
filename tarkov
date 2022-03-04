@@ -3,6 +3,7 @@ if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 curl -o tarkov 'https://raw.githubusercontent.com/bgkillas/tarkov/main/tarkov'
 sudo chmod +x tarkov
 sudo mv tarkov /usr/local/bin/tarkov
+exit
 fi
 mkdir -p "$HOME"/.config/tarkov/{eft,cfg} &>/dev/null
 set -e
