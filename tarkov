@@ -25,11 +25,13 @@ if [ -d "$PROTON/*/bin" ]; then
 	echo "$PROTON/*/bin does not exist run a game with the proton install and try again"
 	exit
 fi
-if [ ! -d "$CFG/pfx" ]; then
+if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	curl 'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks' -o winetricks
 	curl -L 'https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-linux.tar.xz' -o inno.tar.xz
 	curl -L 'https://prod.escapefromtarkov.com/launcher/download' -o bsglauncher.exe
-	rm -rf "$HOME"/.config/tarkov/bsg
+	set +e
+	rm -rf "$HOME"/.config/tarkov/{bsg,pfx}
+	set -e
 	tar -xf inno.tar.xz
 	cd innoextract-1.9-linux
 	./innoextract -s ../bsglauncher.exe
