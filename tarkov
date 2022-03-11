@@ -77,7 +77,7 @@ if [ -f /home/.config/tarkov/prerun ]; then
 		WINEFSYNC='1' \
 		WINEDEBUG='-all' \
 		WINEPREFIX="$CFG/pfx" \
-		"$(cat /home/.config/tarkov/prerun)" \
+		$(cat /home/.config/tarkov/prerun) \
 		"$PROTON"/*/bin/wine64 \
 		"$HOME/.config/tarkov/bsg/BsgLauncher.exe"
 else
