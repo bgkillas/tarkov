@@ -27,6 +27,7 @@
 ## how to add it steamdecks steamui
 
 in desktop mode steam go to 
+
 Games > Add non steam game > browse(change file type to all instead of .desktop files) > tarkovs script file(should be in /home/deck if you just ran the 'how to run' commands directly)
 
 ## controls not working when launched through steamdecks steamui
