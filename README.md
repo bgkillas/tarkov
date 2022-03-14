@@ -8,7 +8,7 @@
 
 ## useful things
 
-``tarkov upd`` to install script to /usr/local/bin (requires sudo perms)
+``tarkov upd`` to update install script
 
 ``$HOME/.config/tarkov/prerun`` to have something like mangohud or gamescope run before it
 
