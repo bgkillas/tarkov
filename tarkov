@@ -5,9 +5,8 @@ if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 	chmod +x tarkov
 	mv tarkov "${BASH_SOURCE[0]}"
 	else
-	echo f
-	chmod +x tarkov
-	sudo mv tarkov /usr/local/bin/tarkov
+	echo "you do not own ${BASH_SOURCE[0]}"
+	fi
 	exit
 fi
 chmod +x "${BASH_SOURCE[0]}"
