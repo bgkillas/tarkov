@@ -1,11 +1,16 @@
 #!/bin/bash
 if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 	curl -o tarkov 'https://raw.githubusercontent.com/bgkillas/tarkov/main/tarkov'
-	sudo chmod +x tarkov
+	if [ "$(stat -c %U ${BASH_SOURCE[0]})" == "$USER" ];then
+	chmod +x tarkov
+	mv tarkov "${BASH_SOURCE[0]}"
+	else
+	echo f
+	chmod +x tarkov
 	sudo mv tarkov /usr/local/bin/tarkov
 	exit
 fi
-chmod +x ${BASH_SOURCE[0]}
+chmod +x "${BASH_SOURCE[0]}"
 mkdir -p "$HOME"/.config/tarkov/{eft,cfg} &>/dev/null
 set -e
 cd "$HOME"
