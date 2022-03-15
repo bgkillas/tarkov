@@ -51,18 +51,15 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	rm -rf winetricks
 	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
-	unlink "$CFG"/pfx/dosdevices/z:
-	ln -sf "$HOME" /home/.config/tarkov/pfx/dosdevices/z:
 	echo -e "Windows Registry Editor Version 5.00
-
 [HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\EscapeFromTarkov]
-\"DisplayIcon\"=\"Z:\\\\\.config\\\\\\\tarkov\\\\\\\eft\\\\\\\EscapeFromTarkov.exe\"
+\"DisplayIcon\"=\"Z:$(echo "$HOME" | sed 's@/@\\\\\\@g')\\\\\.config\\\\\\\tarkov\\\\\\\eft\\\\\\\EscapeFromTarkov.exe\"
 \"DisplayName\"=\"Escape from Tarkov\"
 \"HelpLink\"=\"https://www.escapefromtarkov.com/\"
-\"InstallLocation\"=\"Z:\\\\\.config\\\\\\\tarkov\\\\\\\eft\"
+\"InstallLocation\"=\"Z:$(echo "$HOME" | sed 's@/@\\\\\\@g')\\\\\.config\\\\\\\tarkov\\\\\\\eft\"
 \"NoModify\"=dword:00000001
 \"Publisher\"=\"Battlestate Games\"
-\"UninstallString\"=\"Z:\\\\\\.config\\\\\\\\tarkov\\\\\\\\eft\\\\\Uninstall.exe\"
+\"UninstallString\"=\"Z:$(echo "$HOME" | sed 's@/@\\\\\\@g')\\\\\.config\\\\\\\tarkov\\\\\\\eft\\\\\Uninstall.exe\"
 \"URLInfoAbout\"=\"https://www.escapefromtarkov.com/\"
 \"URLUpdateInfo\"=\"https://www.escapefromtarkov.com/\"
 " >/tmp/eft
