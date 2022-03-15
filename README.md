@@ -12,7 +12,7 @@
 
 ``$HOME/.config/tarkov/prerun`` to have something like mangohud or gamescope run before it
 
-``$HOME/.config/tarkov/proton`` custom proton install
+``$HOME/.config/tarkov/proton`` custom proton install (full path in text ex: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
 
 ## not so useful things
 
