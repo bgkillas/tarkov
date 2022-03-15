@@ -3,6 +3,7 @@ if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 	curl -o tarkov 'https://raw.githubusercontent.com/bgkillas/tarkov/main/tarkov'
 	if [ "$(stat -c %U ${BASH_SOURCE[0]})" == "$USER" ];then
 	cat tarkov > "${BASH_SOURCE[0]}"
+	rm tarkov
 	else
 	echo "you do not own ${BASH_SOURCE[0]}"
 	fi
