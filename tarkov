@@ -51,7 +51,7 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	rm -rf winetricks
 	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
-	ln -sf "$CFG/pfx/drive_c/BattleState Games/Escape From Tarkov" "$CFG/eft"
+	ln -sf "$CFG/pfx/drive_c/Battlestate Games/EFT" "$CFG/eft"
 	WINEPREFIX="$CFG/pfx" \
 		"$PROTON"/*/bin/wine64 winecfg -v win10
 	rm -rf "$CFG/pfx/drive_c/windows/Fonts"
