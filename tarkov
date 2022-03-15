@@ -10,7 +10,7 @@ if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 	exit
 fi
 chmod +x "${BASH_SOURCE[0]}"
-mkdir -p "$HOME"/.config/tarkov/{eft,cfg} &>/dev/null
+mkdir -p "$HOME"/.config/tarkov/cfg &>/dev/null
 set -e
 cd "$HOME"
 CFG="$HOME/.config/tarkov"
