@@ -51,8 +51,8 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	rm -rf winetricks
 	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
-	unlink /home/.config/tarkov/pfx/dosdevices/z:
-	ln -sf /home /home/.config/tarkov/pfx/dosdevices/z:
+	unlink "$CFG"/pfx/dosdevices/z:
+	ln -sf "$HOME" /home/.config/tarkov/pfx/dosdevices/z:
 	echo -e "Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\\EscapeFromTarkov]
