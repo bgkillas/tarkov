@@ -11,7 +11,7 @@ if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 	exit
 fi
 chmod +x "${BASH_SOURCE[0]}"
-mkdir -p "$HOME"/.config/tarkov/cfg &>/dev/null
+mkdir -p "$HOME"/.config/tarkov/{cfg,eft} &>/dev/null
 set -e
 cd "$HOME"
 CFG="$HOME/.config/tarkov"
@@ -52,7 +52,8 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	rm -rf winetricks
 	ln -sf "$HOME"/.config/tarkov/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG/pfx/drive_c/windows/syswow64/websocket.dll" "$CFG/pfx/drive_c/windows/system32"
-	ln -sf "$CFG/pfx/drive_c/Battlestate Games/EFT" "$CFG/eft"
+	mkdir -p "$CFG/pfx/drive_c/Battlestate Games"
+	ln -sf "$CFG/eft" "$CFG/pfx/drive_c/Battlestate Games/EFT"
 	WINEPREFIX="$CFG/pfx" \
 		"$PROTON"/*/bin/wine64 winecfg -v win10
 	rm -rf "$CFG/pfx/drive_c/windows/Fonts"
