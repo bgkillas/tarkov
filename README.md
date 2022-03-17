@@ -10,7 +10,7 @@
 
 ``tarkov upd`` to update install script
 
-``tarkov pro`` to specify custom proton directory (ex: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
+``tarkov pro`` to specify custom proton directory (kills prefix) (ex: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
 
 ``tarkov pre`` to specify programs to run with tarkov (like mangohud or smth)
 
