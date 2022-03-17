@@ -10,6 +10,8 @@
 
 ``tarkov upd`` to update install script
 
+``tarkov pro`` to specify custom proton directory(example: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
+
 ``$HOME/.config/tarkov/prerun`` to have something like mangohud or gamescope run before it
 
 ``$HOME/.config/tarkov/proton`` custom proton install (full path in text ex: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
