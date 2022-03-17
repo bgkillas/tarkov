@@ -14,7 +14,7 @@
 
 ``tarkov pre`` to specify programs to run with tarkov (like mangohud or smth)
 
-``tarkov run`` to run something through proton via the tarkov prefix like ``tarkov run explorer`` or ``tarkov run regedit`` (it only looks at 2nd arg so no 'tarkov run explorer C:' because im lazy)
+``tarkov run`` to run something through proton via the tarkov prefix like 'tarkov run explorer' or 'tarkov run regedit'
 
 ## not so useful things
 
