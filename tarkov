@@ -15,7 +15,6 @@ if [ "$#" -gt 0 ] && [ "$@" == "pro" ]; then
 	if [ $(echo "$ptn" | wc -m) -gt 1 ]; then
 		echo "$ptn" >"$CFG"/proton
 	fi
-
 fi
 chmod +x "${BASH_SOURCE[0]}"
 mkdir -p "$HOME"/.config/tarkov/{cfg,eft} &>/dev/null
