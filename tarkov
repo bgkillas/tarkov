@@ -49,6 +49,10 @@ if [ -d "$PROTON/*/bin" ]; then
 	exit
 fi
 wine64="$(find "$PROTON" | grep "bin/wine64$")"
+if [ "$#" -gt 0 ] && [ "$1" == "run" ]; then
+	WINEPREFIX="$CFG"/pfx "$wine64" "$2"
+	exit
+fi
 if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	curl 'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks' -o winetricks
 	curl -L 'https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-linux.tar.xz' -o inno.tar.xz
@@ -72,13 +76,32 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	ln -sf "$CFG"/pfx/drive_c/windows/syswow64/websocket.dll "$CFG"/pfx/drive_c/windows/system32
 	mkdir -p "$CFG/pfx/drive_c/Battlestate Games"
 	ln -sf "$CFG/eft" "$CFG/pfx/drive_c/Battlestate Games/EFT"
-	WINEPREFIX="$CFG/pfx" \
+	WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
+	WINEPREFIX="$CFG"/pfx \
 		"$wine64" winecfg -v win10
 	rm -rf "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/share/fonts "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$CFG/pfx/drive_c/windows/system32/d3d11.dll"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/system32/dxgi.dll"
-	sleep 3
+	WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
+	if [ -f "$CFG"/eft/Uninstall.exe ]; then
+		echo 'Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov]
+"DisplayIcon"="C:\\Battlestate Games\\EFT\\EscapeFromTarkov.exe"
+"DisplayName"="Escape from Tarkov"
+"HelpLink"="https://www.escapefromtarkov.com/"
+"InstallLocation"="C:\\Battlestate Games\\EFT"
+"NoModify"=dword:00000001
+"Publisher"="Battlestate Games"
+"UninstallString"="C:\\Battlestate Games\\EFT\\Uninstall.exe"
+"URLInfoAbout"="https://www.escapefromtarkov.com/"
+"URLUpdateInfo"="https://www.escapefromtarkov.com/"
+' >/tmp/eft
+		awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
+		WINEPREFIX="$CFG"/pfx \
+			"$wine64" regedit /tmp/eft.reg
+		WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
+	fi
 fi
 cd "$CFG"/bsg
 if [ -f "$CFG"/prerun ]; then
