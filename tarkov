@@ -1,7 +1,7 @@
 #!/bin/bash
-if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
+if [ "$#" -gt 0 ] && [ "$1" == "upd" ]; then
 	curl -o tarkov 'https://raw.githubusercontent.com/bgkillas/tarkov/main/tarkov'
-	if [ "$(stat -c %U ${BASH_SOURCE[0]})" == "$USER" ]; then
+	if [ "$(stat -c %U "${BASH_SOURCE[0]}")" == "$USER" ]; then
 		diff tarkov "${BASH_SOURCE[0]}"
 		cat tarkov >"${BASH_SOURCE[0]}"
 		rm tarkov
@@ -12,16 +12,16 @@ if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 fi
 CFG="$HOME/.config/tarkov"
 mkdir -p "$CFG"/{cfg,eft} &>/dev/null
-if [ "$#" -gt 0 ] && [ "$@" == "pro" ]; then
-	read -e ptn
-	if [ $(echo "$ptn" | wc -m) -gt 1 ]; then
+if [ "$#" -gt 0 ] && [ "$1" == "pro" ]; then
+	read -re ptn
+	if [ ${#ptn} -gt 1 ]; then
 		echo "$ptn" >"$CFG"/proton
 		rm -rf "$CFG"/pfx
 	fi
 fi
-if [ "$#" -gt 0 ] && [ "$@" == "pre" ]; then
-	read -e pre
-	if [ $(echo "$pre" | wc -m) -gt 1 ]; then
+if [ "$#" -gt 0 ] && [ "$1" == "pre" ]; then
+	read -re pre
+	if [ ${#pre} -gt 1 ]; then
 		echo "$pre" >"$CFG"/prerun
 	fi
 fi
@@ -32,14 +32,14 @@ if [ ! -d "$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" ];
 	echo "$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime does not exist make sure 'Proton Battleye Runtime' tool is installed"
 	exit
 fi
-if [ -f "$CFG"/proton" ] && [ "$(cat "$CFG"/proton | wc -l)" -eq 1 ]; then
+if [ -f "$CFG"/proton ] && [ "$(wc -l <"$CFG"/proton)" -eq 1 ]; then
 	PROTON="$(cat "$CFG"/proton)"
 elif [ -d "$HOME/.local/share/Steam/steamapps/common/Proton 7.0" ]; then
 	PROTON="$HOME/.local/share/Steam/steamapps/common/Proton 7.0"
 else
 	echo "$HOME/.local/share/Steam/steamapps/common/Proton 7.0 does not exist either install proton 7.0 and just hit enter now or submit full path to custom proton directory"
-	read -e ptn
-	if [ $(echo "$ptn" | wc -m) -gt 1 ]; then
+	read -re ptn
+	if [ ${#ptn} -gt 1 ]; then
 		echo "$ptn" >"$CFG"/proton
 	fi
 	exit
@@ -79,7 +79,7 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/system32/dxgi.dll"
 fi
 sleep 3
-cd "$CFG"/bsg"
+cd "$CFG"/bsg
 if [ -f "$CFG"/prerun ]; then
 	PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
 		WINEDLLOVERRIDES='d3d11=n' \
