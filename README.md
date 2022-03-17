@@ -13,6 +13,11 @@
 ``tarkov pro`` to specify custom proton directory (ex: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
 
 ``tarkov pre`` to specify programs to run with tarkov (like mangohud or smth)
+
+## launcher not recognising eft install
+
+this happens when the prefix dies from say changing proton version just hit locate eft install and enter . as the path
+
 ## not so useful things
 
 ``$HOME/.config/tarkov/eft`` eft install directory
