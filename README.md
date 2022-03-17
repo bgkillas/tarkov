@@ -14,9 +14,7 @@
 
 ``tarkov pre`` to specify programs to run with tarkov (like mangohud or smth)
 
-## launcher not recognising eft install
-
-this happens when the prefix dies from say changing proton version just hit "set path to existing game install" and enter "." as the "File name"
+``tarkov run`` to run something through proton via the tarkov prefix like ``tarkov run explorer`` or ``tarkov run regedit`` (it only looks at 2nd arg so no 'tarkov run explorer C:' because im lazy)
 
 ## not so useful things
 
