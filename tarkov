@@ -78,8 +78,8 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	ln -sf "$PROTON"/*/share/fonts "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$CFG/pfx/drive_c/windows/system32/d3d11.dll"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/system32/dxgi.dll"
+	sleep 3
 fi
-sleep 3
 cd "$CFG"/bsg
 if [ -f "$CFG"/prerun ]; then
 	PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
