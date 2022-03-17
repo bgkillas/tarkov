@@ -12,10 +12,7 @@
 
 ``tarkov pro`` to specify custom proton directory (ex: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
 
-``$HOME/.config/tarkov/prerun`` to have something like mangohud or gamescope run before it
-
-``$HOME/.config/tarkov/proton`` custom proton install (full path in text ex: /home/deck/.local/share/Steam/steamapps/common/Proton 6.3)
-
+``tarkov pre`` to specify programs to run with tarkov (like mangohud or smth)
 ## not so useful things
 
 ``$HOME/.config/tarkov/eft`` eft install directory
