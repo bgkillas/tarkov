@@ -19,6 +19,12 @@ if [ "$#" -gt 0 ] && [ "$@" == "pro" ]; then
 		rm -rf "$CFG"/pfx
 	fi
 fi
+if [ "$#" -gt 0 ] && [ "$@" == "pre" ]; then
+	read -e pre
+	if [ $(echo "$pre" | wc -m) -gt 1 ]; then
+		echo "$pre" >"$CFG"/prerun
+	fi
+fi
 chmod +x "${BASH_SOURCE[0]}"
 set -e
 cd "$HOME"
