@@ -16,7 +16,7 @@
 
 ## launcher not recognising eft install
 
-this happens when the prefix dies from say changing proton version just hit locate eft install and enter . as the path
+this happens when the prefix dies from say changing proton version just hit "set path to existing game install" and enter "." as the "File name"
 
 ## not so useful things
 
