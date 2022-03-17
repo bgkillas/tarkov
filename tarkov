@@ -1,12 +1,12 @@
 #!/bin/bash
 if [ "$#" -gt 0 ] && [ "$@" == "upd" ]; then
 	curl -o tarkov 'https://raw.githubusercontent.com/bgkillas/tarkov/main/tarkov'
-	if [ "$(stat -c %U ${BASH_SOURCE[0]})" == "$USER" ];then
-	diff tarkov "${BASH_SOURCE[0]}"
-	cat tarkov > "${BASH_SOURCE[0]}"
-	rm tarkov
+	if [ "$(stat -c %U ${BASH_SOURCE[0]})" == "$USER" ]; then
+		diff tarkov "${BASH_SOURCE[0]}"
+		cat tarkov >"${BASH_SOURCE[0]}"
+		rm tarkov
 	else
-	echo "you do not own ${BASH_SOURCE[0]}"
+		echo "you do not own ${BASH_SOURCE[0]}"
 	fi
 	exit
 fi
@@ -26,8 +26,8 @@ elif [ -d "$HOME/.local/share/Steam/steamapps/common/Proton 7.0" ]; then
 else
 	echo "$HOME/.local/share/Steam/steamapps/common/Proton 7.0 does not exist either install proton 7.0 and just hit enter now or submit full path to custom proton directory"
 	read -e ptn
-	if [ $(echo "$ptn"|wc -m) -gt 1 ]; then
-	echo "$ptn">"$CFG"/proton
+	if [ $(echo "$ptn" | wc -m) -gt 1 ]; then
+		echo "$ptn" >"$CFG"/proton
 	fi
 	exit
 fi
