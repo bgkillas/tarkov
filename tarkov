@@ -74,8 +74,7 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	rm -rf winetricks
 	ln -sf "$CFG"/cfg "$CFG/pfx/drive_c/users/steamuser/AppData/Roaming/Battlestate Games"
 	ln -sf "$CFG"/pfx/drive_c/windows/syswow64/websocket.dll "$CFG"/pfx/drive_c/windows/system32
-	mkdir -p "$CFG/pfx/drive_c/Battlestate Games"
-	ln -sf "$CFG/eft" "$CFG/pfx/drive_c/Battlestate Games/EFT"
+	ln -sf "$CFG/eft" "$CFG/pfx/drive_c/eft"
 	WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
 	WINEPREFIX="$CFG"/pfx \
 		"$wine64" winecfg -v win10
@@ -87,7 +86,7 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	if [ -f "$CFG"/eft/Uninstall.exe ]; then
 		echo 'Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov]
-"InstallLocation"="C:\\Battlestate Games\\EFT"
+"InstallLocation"="C:\\eft"
 ' >/tmp/eft
 		awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
 		WINEPREFIX="$CFG"/pfx \
