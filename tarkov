@@ -83,16 +83,14 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$CFG/pfx/drive_c/windows/system32/d3d11.dll"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/system32/dxgi.dll"
 	WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
-	if [ -f "$CFG"/eft/Uninstall.exe ]; then
-		echo 'Windows Registry Editor Version 5.00
+	echo 'Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov]
 "InstallLocation"="C:\\eft"
 ' >/tmp/eft
-		awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
-		WINEPREFIX="$CFG"/pfx \
-			"$wine64" regedit /tmp/eft.reg
-		WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
-	fi
+	awk 'sub("$", "\r")' /tmp/eft >/tmp/eft.reg
+	WINEPREFIX="$CFG"/pfx \
+		"$wine64" regedit /tmp/eft.reg
+	WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
 fi
 cd "$CFG"/bsg
 if [ -f "$CFG"/prerun ]; then
