@@ -82,7 +82,8 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	rm -rf "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/share/fonts "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$CFG/pfx/drive_c/windows/system32/d3d11.dll"
-	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d9.dll "$CFG/pfx/drive_c/windows/system32/d3d9.dll"
+	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d9.dll "$CFG/pfx/drive_c/windows/syswow64/d3d9.dll"
+	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/syswow64/dxgi.dll"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/system32/dxgi.dll"
 	WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
 	echo 'Windows Registry Editor Version 5.00
