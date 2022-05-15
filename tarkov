@@ -64,6 +64,7 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	cd innoextract-1.9-linux
 	./innoextract -s ../bsglauncher.exe
 	mv app "$CFG"/bsg
+	echo 'd3d9.shaderModel=1' > "$CFG"/bsg/dxvk.conf"
 	cd ..
 	rm -rf tmp bsglauncher.exe inno.tar.xz innoextract-1.9-linux
 	WINEDEBUG=-all \
@@ -81,6 +82,7 @@ if [ ! -d "$CFG/pfx" ] || [ ! -d "$CFG/bsg" ]; then
 	rm -rf "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/share/fonts "$CFG/pfx/drive_c/windows/Fonts"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d11.dll "$CFG/pfx/drive_c/windows/system32/d3d11.dll"
+	ln -sf "$PROTON"/*/lib64/wine/dxvk/d3d9.dll "$CFG/pfx/drive_c/windows/system32/d3d9.dll"
 	ln -sf "$PROTON"/*/lib64/wine/dxvk/dxgi.dll "$CFG/pfx/drive_c/windows/system32/dxgi.dll"
 	WINEPREFIX="$CFG"/pfx "${wine64//64/server}" --wait
 	echo 'Windows Registry Editor Version 5.00
@@ -95,7 +97,7 @@ fi
 cd "$CFG"/bsg
 if [ -f "$CFG"/prerun ]; then
 	PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
-		WINEDLLOVERRIDES='d3d11=n' \
+		WINEDLLOVERRIDES='d3d11=n,d3d9=n' \
 		WINEFSYNC='1' \
 		WINEDEBUG='-all' \
 		WINEPREFIX="$CFG/pfx" \
@@ -104,7 +106,7 @@ if [ -f "$CFG"/prerun ]; then
 		"$CFG"/bsg/BsgLauncher.exe
 else
 	PROTON_BATTLEYE_RUNTIME="$HOME/.local/share/Steam/steamapps/common/Proton BattlEye Runtime" \
-		WINEDLLOVERRIDES='d3d11=n' \
+		WINEDLLOVERRIDES='d3d11=n,d3d9=n' \
 		WINEFSYNC='1' \
 		WINEDEBUG='-all' \
 		WINEPREFIX="$CFG/pfx" \
